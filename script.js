@@ -1,11 +1,21 @@
 // Default grid size
 let gridSize = 16;
 
-// Generate random RGB color
+// Generate random RGB color (excluding white)
 function getRandomColor() {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    
+    // Ensure at least one value is less than 255 to exclude white
+    if (r === 255 && g === 255 && b === 255) {
+        // If all are 255, randomly set one to a lower value
+        const randomIndex = Math.floor(Math.random() * 3);
+        if (randomIndex === 0) r = Math.floor(Math.random() * 255);
+        else if (randomIndex === 1) g = Math.floor(Math.random() * 255);
+        else b = Math.floor(Math.random() * 255);
+    }
+    
     return `rgb(${r}, ${g}, ${b})`;
 }
 
