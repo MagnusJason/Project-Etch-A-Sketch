@@ -8,10 +8,8 @@ function createGrid(size) {
     // Clear existing grid
     gridContainer.innerHTML = '';
     
-    // Calculate square size (960px total width)
-    // With box-sizing: border-box, borders are included in the width
-    // Each square has 1px border on each side, so we subtract 2px per square
-    const squareSize = (960 / size) - 2;
+    // Calculate square size to perfectly fill the 960px container
+    const squareSize = 960 / size;
     
     // Create squares
     for (let i = 0; i < size * size; i++) {
