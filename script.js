@@ -2,7 +2,7 @@
 let gridSize = 16;
 
 // Generate random RGB color (excluding white)
-function getRandomColor() {
+function getRandomRGB() {
     let r = Math.floor(Math.random() * 256);
     let g = Math.floor(Math.random() * 256);
     let b = Math.floor(Math.random() * 256);
@@ -16,7 +16,7 @@ function getRandomColor() {
         else b = Math.floor(Math.random() * 255);
     }
     
-    return `rgb(${r}, ${g}, ${b})`;
+    return { r, g, b };
 }
 
 // Create the grid
@@ -36,9 +36,23 @@ function createGrid(size) {
         square.style.width = `${squareSize}px`;
         square.style.height = `${squareSize}px`;
         
-        // Add hover effect with random RGB color
+        // Initialize opacity tracking (starts at 0, will be 0.1 on first hover)
+        let currentOpacity = 0;
+        let squareColor = null;
+        
+        // Add hover effect with progressive darkening
         square.addEventListener('mouseenter', function() {
-            this.style.backgroundColor = getRandomColor();
+            // Generate random color on first interaction
+            if (!squareColor) {
+                const rgb = getRandomRGB();
+                squareColor = rgb;
+            }
+            
+            // Increase opacity by 10% (0.1) each interaction, capped at 1.0
+            if (currentOpacity < 1.0) {
+                currentOpacity = Math.min(currentOpacity + 0.1, 1.0);
+                this.style.backgroundColor = `rgba(${squareColor.r}, ${squareColor.g}, ${squareColor.b}, ${currentOpacity})`;
+            }
         });
         
         gridContainer.appendChild(square);
