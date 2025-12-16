@@ -1,6 +1,14 @@
 // Default grid size
 let gridSize = 16;
 
+// Generate random RGB color
+function getRandomColor() {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
 // Create the grid
 function createGrid(size) {
     const gridContainer = document.getElementById('gridContainer');
@@ -18,9 +26,9 @@ function createGrid(size) {
         square.style.width = `${squareSize}px`;
         square.style.height = `${squareSize}px`;
         
-        // Add hover effect
+        // Add hover effect with random RGB color
         square.addEventListener('mouseenter', function() {
-            this.style.backgroundColor = '#333';
+            this.style.backgroundColor = getRandomColor();
         });
         
         gridContainer.appendChild(square);
